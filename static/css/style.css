@@ -1,0 +1,69 @@
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #f8f9fa;
+    color: #333;
+}
+
+.glass-nav {
+    background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%) !important;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.card {
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #4776E6 0%, #8E54E9 100%);
+    border: none;
+    border-radius: 8px;
+    padding: 10px 20px;
+    font-weight: 500;
+    transition: all 0.3s;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(71, 118, 230, 0.4);
+}
+
+.badge-pending { background-color: #ffc107; color: #000; }
+.badge-in-progress { background-color: #17a2b8; }
+.badge-completed { background-color: #28a745; }
+
+.status-badge {
+    font-size: 0.85em;
+    padding: 0.4em 0.8em;
+    border-radius: 20px;
+}
+
+.priority-high { color: #dc3545; font-weight: bold; }
+.priority-medium { color: #fd7e14; }
+.priority-low { color: #28a745; }
+
+.page-title {
+    font-weight: 700;
+    color: #2c3e50;
+    margin-bottom: 30px;
+    position: relative;
+    padding-bottom: 10px;
+}
+
+.page-title::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 4px;
+    width: 60px;
+    background: linear-gradient(135deg, #4776E6 0%, #8E54E9 100%);
+    border-radius: 2px;
+}

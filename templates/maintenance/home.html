@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row align-items-center min-vh-75 mt-5">
+    <div class="col-md-6">
+        <h1 class="display-4 fw-bold mb-4" style="color: #1e3c72;">Campus Maintenance Made Easy</h1>
+        <p class="lead text-muted mb-4">Report issues, track progress, and help keep our campus beautiful and functional. Our team is ready to resolve your requests.</p>
+        
+        {% if user.is_authenticated %}
+            <div class="d-grid gap-3 d-sm-flex">
+                <a href="{% url 'submit_request' %}" class="btn btn-primary btn-lg px-4 gap-3"><i class="fas fa-plus-circle me-2"></i> Submit Request</a>
+                <a href="{% url 'my_requests' %}" class="btn btn-outline-secondary btn-lg px-4"><i class="fas fa-list me-2"></i> View My Requests</a>
+            </div>
+        {% else %}
+            <div class="d-grid gap-3 d-sm-flex">
+                <a href="{% url 'login' %}" class="btn btn-primary btn-lg px-4 gap-3">Login to Report</a>
+                <a href="{% url 'register' %}" class="btn btn-outline-secondary btn-lg px-4">Register</a>
+            </div>
+        {% endif %}
+    </div>
+    <div class="col-md-6 text-center d-none d-md-block">
+        <img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?q=80&w=800&auto=format&fit=crop" alt="Maintenance" class="img-fluid rounded-4 shadow-lg" style="max-height: 400px; object-fit: cover;">
+    </div>
+</div>
+{% endblock %}

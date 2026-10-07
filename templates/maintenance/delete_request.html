@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row justify-content-center mt-5">
+    <div class="col-md-6">
+        <div class="card shadow border-danger">
+            <div class="card-header bg-danger text-white">
+                <h4 class="mb-0"><i class="fas fa-exclamation-triangle me-2"></i>Confirm Deletion</h4>
+            </div>
+            <div class="card-body p-4 text-center">
+                <p class="lead">Are you sure you want to delete the request <strong>"{{ maintenance_request.title }}"</strong>?</p>
+                <p class="text-muted small">This action cannot be undone.</p>
+                
+                <form method="post" class="mt-4">
+                    {% csrf_token %}
+                    <a href="{% url 'my_requests' %}" class="btn btn-light px-4 me-2">Cancel</a>
+                    <button type="submit" class="btn btn-danger px-4">Yes, Delete</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

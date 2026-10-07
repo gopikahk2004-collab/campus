@@ -1,0 +1,101 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2 class="page-title mb-0"><i class="fas fa-clipboard-list me-2"></i>My Requests</h2>
+            <a href="{% url 'submit_request' %}" class="btn btn-primary"><i class="fas fa-plus me-1"></i> New Request</a>
+        </div>
+        
+        <div class="card shadow-sm mb-4">
+            <div class="card-body bg-light rounded">
+                <form method="get" class="row g-3 align-items-end">
+                    <div class="col-md-3">
+                        <label class="form-label text-muted small fw-bold">Category</label>
+                        <select name="category" class="form-select border-0 shadow-sm">
+                            <option value="">All Categories</option>
+                            {% for c in categories %}
+                            <option value="{{ c }}" {% if request.GET.category == c %}selected{% endif %}>{{ c }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label text-muted small fw-bold">Priority</label>
+                        <select name="priority" class="form-select border-0 shadow-sm">
+                            <option value="">All Priorities</option>
+                            {% for p in priorities %}
+                            <option value="{{ p }}" {% if request.GET.priority == p %}selected{% endif %}>{{ p }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label text-muted small fw-bold">Status</label>
+                        <select name="status" class="form-select border-0 shadow-sm">
+                            <option value="">All Statuses</option>
+                            {% for s in statuses %}
+                            <option value="{{ s }}" {% if request.GET.status == s %}selected{% endif %}>{{ s }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="d-grid gap-2 d-md-flex">
+                            <button type="submit" class="btn btn-secondary w-100"><i class="fas fa-filter me-1"></i> Filter</button>
+                            <a href="{% url 'my_requests' %}" class="btn btn-outline-secondary w-100">Clear</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        {% if requests %}
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+            {% for req in requests %}
+            <div class="col">
+                <div class="card h-100 shadow-sm border-0">
+                    <div class="card-header bg-white border-0 pt-4 pb-0">
+                        <div class="d-flex justify-content-between align-items-start">
+                            <h5 class="card-title fw-bold text-truncate mb-0" title="{{ req.title }}">{{ req.title }}</h5>
+                            <span class="badge status-badge 
+                                {% if req.status == 'Pending' %}badge-pending
+                                {% elif req.status == 'In Progress' %}badge-in-progress
+                                {% else %}badge-completed{% endif %}">
+                                {{ req.status }}
+                            </span>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text text-muted small mb-3">{{ req.description|truncatewords:15 }}</p>
+                        
+                        <div class="d-flex flex-column gap-2 small">
+                            <div><i class="fas fa-tag text-secondary me-2"></i>{{ req.category }}</div>
+                            <div><i class="fas fa-map-marker-alt text-secondary me-2"></i>{{ req.location }}</div>
+                            <div>
+                                <i class="fas fa-exclamation-circle text-secondary me-2"></i>
+                                <span class="{% if req.priority == 'Urgent' or req.priority == 'High' %}priority-high{% elif req.priority == 'Medium' %}priority-medium{% else %}priority-low{% endif %}">
+                                    {{ req.priority }} Priority
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer bg-white border-top-0 d-flex justify-content-between align-items-center pb-4">
+                        <small class="text-muted"><i class="far fa-clock me-1"></i>{{ req.date_reported|date:"M d, Y" }}</small>
+                        <div class="btn-group">
+                            <a href="{% url 'update_request' req.pk %}" class="btn btn-sm btn-outline-primary"><i class="fas fa-edit"></i></a>
+                            <a href="{% url 'delete_request' req.pk %}" class="btn btn-sm btn-outline-danger"><i class="fas fa-trash"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="text-center p-5 bg-white rounded shadow-sm">
+            <i class="fas fa-clipboard-check fa-4x text-muted mb-3 opacity-50"></i>
+            <h4 class="text-muted">No maintenance requests found.</h4>
+            <p class="text-muted mb-0">You're all caught up!</p>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
